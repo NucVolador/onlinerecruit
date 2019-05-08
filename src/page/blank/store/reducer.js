@@ -14,7 +14,10 @@ const storeDefault = fromJS({
 
 export default  (state = storeDefault,action) => {
     switch (action.type){
-        // case Constants.GET_HOME_DATA:
-        //     return state.merge(getHomeData(state,action));
+        case Constants.CHANGE_SHOW:
+            // return state.merge(getHomeData(state,action));
+            return state;
+        default:
+            return state;
     }
 }
