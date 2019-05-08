@@ -4,12 +4,14 @@ import { Provider } from "react-redux"
 import store from "../store";
 
 import HelloWorld from "../page/blank";
+import Header from "../component/header";
 
-export default function (){
+
+export default ()=>{
 	return (
 		<Provider store={store}>
 			<Fragment>
-				{/*<Header></Header>*/}
+				<Header></Header>
 				<BrowserRouter>
 					<Fragment>
 						<Route path='/'
