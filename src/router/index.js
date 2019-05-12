@@ -5,6 +5,7 @@ import store from "../store";
 
 import HelloWorld from "../page/blank";
 import Header from "../component/header";
+import Home from "../page/home";
 
 
 export default ()=>{
@@ -16,7 +17,7 @@ export default ()=>{
 					<Fragment>
 						<Route path='/'
 							exact
-							component={HelloWorld}
+							component={Home}
 						>
 						</Route>
 					</Fragment>
