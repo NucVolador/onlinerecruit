@@ -26,8 +26,18 @@ injectGlobal`
     footer, header, hgroup, menu, nav, section {
         display: block;
     }
+    html {
+        font-size: 10px;
+        -webkit-tap-highlight-color: transparent;
+    }
     body {
         line-height: 1;
+        font-size:17px;
+        line-height: 1.42857;
+        background-color: #fff; 
+    }
+    a, body {
+        color: #333;
     }
     ol, ul {
         list-style: none;
@@ -47,9 +57,52 @@ injectGlobal`
     a{
         text-decoration:none;
     }
+    img{
+        border:0;
+        vertical-align: middle;
+    }
     .clearfix:before,.clearfix:after{
         content:'';
         display:table;
         clear:both;
+    }
+    html,body{
+        height:100%;
+    }
+    *, :after, :before {
+        box-sizing: border-box;
+    }
+    a {
+        cursor: pointer;
+    }
+    a {
+        background-color: transparent;
+    }
+    form {
+        margin: 0 0 20px;
+    }
+    button, input, optgroup, select, textarea {
+        color: inherit;
+        font: inherit;
+        margin: 0;
+    }
+    input{
+        border:0;
+        outline:none;
+    }
+    button, html input[type=button], input[type=reset], input[type=submit] {
+        -webkit-appearance: button;
+        cursor: pointer;
+    }
+    input[type=checkbox], input[type=radio] {
+        margin: 4px 0 0;
+        line-height: normal;
+    }
+    input[type=checkbox], input[type=radio] {
+        box-sizing: border-box;
+        padding: 0;
+    }
+    #root{
+        height:100%;
     }
 `
