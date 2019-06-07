@@ -4,29 +4,41 @@ import {InputItem, ErrorMsg} from "./style"
 
 function Input_Item(props){
     const [isError, setIsError] = useState(false)
-    function check(e){
-        console.log(e);
-        if(!e ){
-            setIsError(false)
-            return
-        }
-        if (!e.target.value) {
-            setIsError(true)
-        } else {
-            setIsError(false)
-        }
+    // function check(e){
+    //     console.log(e);
+    //     if(!e ){
+    //         setIsError(false)
+    //         return
+    //     }
+    //     if (!e.target.value) {
+    //         setIsError(true)
+    //     } else {
+    //         setIsError(false)
+    //     }
+    // }
+    function check(value){
+        if(value){
+			setIsError(false)
+        }else{
+			setIsError(true)
+		}
     }
+    
     useEffect(()=>{
-        check();
-    },[])
+		console.log("1");
+		check(props.value);
+    },[props.value])
+	useEffect(()=>{
+		check("1");
+		console.log("2");
+	},[])
     return (
         <InputItem className={props.classList}>
             <input type={props.type}
                    name={props.name}
                    value={props.value}
                    placeholder={props.placeholder}
-                   onChange={props.onChange}
-                   onInput={check}
+				   onChange={props.onChange}
             />
             {
                 props.icon?<i className={props.icon}></i>:""

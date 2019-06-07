@@ -23,6 +23,11 @@ export const changeMouseIn = value => ({
     value
 })
 
+export const changeKeyword = value => ({
+	type : constants.KEYWORD_CHANGE,
+	value
+})
+
 
 
 export const getList = () => {

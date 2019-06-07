@@ -3,17 +3,19 @@ import {BrowserRouter,Route,Switch} from "react-router-dom"
 import { Provider } from "react-redux"
 import store from "../store";
 
-import HelloWorld from "../page/blank";
 import Header from "../component/header";
 import Home from "../page/home";
 import Login from "../page/login";
+import Resume from "../page/resume";
+import AppliedJob from "../page/appliedJob";
+import SearchList from "../page/searchlist";
+import Detail from "../page/detail"
 
 
 export default ()=>{
 	return (
 		<Provider store={store}>
 			<Fragment>
-
 				<BrowserRouter>
 					<Fragment>
 						<Switch>
@@ -24,6 +26,14 @@ export default ()=>{
 							<Header></Header>
 						</Switch>
 						<Route path='/' exact component={Home}/>
+						<Route path='/resume' exact component={Resume}/>
+						<Route path='/applied_job' exact component={AppliedJob}/>
+						<Route path='/searchlist' exact component={SearchList} />
+						<Route path = '/detail/:id'
+                               exact
+                               component = {Detail}
+                        >
+                        </Route>
 					</Fragment>
 				</BrowserRouter>
 			</Fragment>

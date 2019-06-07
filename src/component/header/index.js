@@ -1,5 +1,6 @@
-import React,{PureComponent} from 'react';
+import React,{PureComponent,Fragment} from 'react';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types'
 import {
     actionCreators,
 } from './store';
@@ -15,16 +16,26 @@ import {
     SearchList,
     SearchItem
 } from './style'
+import {Link} from 'react-router-dom';
+
+import {Button} from 'antd'
 
 import {CSSTransition} from 'react-transition-group';
 import LogoPic from '../../statics/images/logo.png';
+import {ActionCreator} from "../../page/searchlist/store";
+
+import * as LoginAction from "../../page/login/store/actionCreator"
 
 class Header extends PureComponent{
+ static contextTypes = {
+	 router: PropTypes.object
+ }
     render(){
-        const {focused,list,mouseIn,page,totalPage,
+        const {focused,list,mouseIn,page,totalPage,is_login,keyword,city,job,workLife,
             handleFocus,handleBlur,handleChangePage,handleMouseEnter,handleMouseLeave} = this.props;
-            console.log(list)
-        let newList = list.toJS();
+            // console.log(list)
+		console.log(city);
+		let newList = list.toJS();
         let currentList = [];
         if(newList.length){
             for(let i = (page -1) * 10;i < page * 10;i++){
@@ -38,26 +49,36 @@ class Header extends PureComponent{
         return (
             <HeaderWrapper>
                 <HeaderContent>
-                    <Logo>
+                    <Logo href="/">
                         <img src={LogoPic} alt=""/>
                     </Logo>
                     <Register>
-                        <a >注册</a>
-                        <a >
-                            <i className="iconfont">&#xe615;</i>
-                            写文章
-                        </a>
+                        {/*<a>*/}
+                            {/*<i className="iconfont">&#xe615;</i>*/}
+                            {/*联系我们*/}
+                        {/*</a>*/}
+                        {
+							is_login?
+                                <Fragment>
+									<Link to="/resume">我的简历</Link>
+                                    <Link to="/applied_job" className="toudi">投递箱</Link>
+                                    <Button className='logout'
+                                            onClick={()=>{
+                                                this.props.logout();
+												this.context.router.history.push('/login');
+                                            }}
+                                    >
+                                        登出
+                                    </Button>
+                                </Fragment>
+                                :
+                                <Link to="/login">登录</Link>
+                        }
                     </Register>
                     <ContentMain>
-                        <div className='right'>
-                            <a >
-                                <i className="iconfont">&#xe636;</i>
-                            </a>
-                            <a >登录</a>
-                        </div>
                         <div className="left">
-                            <a >首页</a>
-                            <a >下载App</a>
+                            <Link to='/'>首页</Link>
+							<a ></a>
                         </div>
                         <CSSTransition
                             in={this.props.focused}
@@ -67,9 +88,19 @@ class Header extends PureComponent{
                             <SearchInput
                                 onFocus={() => handleFocus(list)}
                                 onBlur={handleBlur}
+                                
                             >
-                                <input type="text" className={focused ? 'focused':''} />
-                                <i className={focused ? 'focused iconfont':'iconfont'}>&#xe64d;</i>
+                                <input type="text" className={focused ? 'focused':''} value={keyword} onChange={()=>this.props.handleKeywordChange(window.event.target.value)} />
+                                <i className={focused ? 'focused iconfont':'iconfont'}
+                                   style={{ cursor: "pointer"}}
+                                   onClick={
+									   ()=>{
+										   this.props.query(job);
+										   this.context.router.history.push(`/searchlist?keyword=${keyword}&city=${city}&job=${job}&workLife=${workLife}`);
+										   // console.log(this.props);
+									   }
+                                   }
+                                >&#xe64d;</i>
                                 <SearchInfo className={ (focused || mouseIn)? 'show':''}
                                     onMouseEnter={handleMouseEnter}
                                     onMouseLeave={handleMouseLeave}
@@ -87,7 +118,19 @@ class Header extends PureComponent{
                                     </SearchTitle>
                                     <SearchList>
                                         {currentList.map((item) => {
-                                            return <SearchItem key={item}>{item}</SearchItem>
+                                            return <SearchItem key={item}
+                                                               onClick={
+                                                                   ()=>{
+                                                                        this.props.handleKeywordChange(item)
+																	     this.props.query(item);
+																	     this.context.router.history.push(`/searchlist?keyword=${item}&city=${city}&job=${job}&workLife=${workLife}`);
+                      
+																	   // console.log(this.props);
+																   }
+                                                               }
+                                                    >
+                                                        {item}
+                                                    </SearchItem>
                                         })}
                                     </SearchList>
                                 </SearchInfo>
@@ -106,7 +149,12 @@ const mapStateToProps = (state) => {
         list : state.getIn(['Header','list']),
         mouseIn : state.getIn(['Header','mouseIn']),
         page : state.getIn(['Header','page']),
-        totalPage : state.getIn(['Header','totalPage'])
+        totalPage : state.getIn(['Header','totalPage']),
+		is_login: state.getIn(['Login','is_login']),
+        keyword: state.getIn(['Header','keyword']),
+		city: state.getIn(['SearchList','city']),
+		job:state.getIn(['SearchList','job']),
+		workLife:state.getIn(['SearchList','workLife'])
     };
 }
 
@@ -140,6 +188,16 @@ const mapDispatchToProps = (dispatch) => {
         },
         handleMouseLeave(){
             dispatch(actionCreators.changeMouseIn(false))
+        },
+        handleKeywordChange(value){
+            // console.log(value)
+			dispatch(actionCreators.changeKeyword(value));
+        },
+		query(page){
+			dispatch(ActionCreator.getNextPage2(page));
+		},
+        logout(){
+            dispatch(LoginAction.logout());
         }
     };
 }

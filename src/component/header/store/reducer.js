@@ -6,7 +6,8 @@ const storeDefault = fromJS({
     list : [],
     mouseIn : false,
     page : 1,
-    totalPage : 1
+    totalPage : 1,
+	keyword: ""
 });
 
 export default ( state = storeDefault , action ) => {
@@ -22,6 +23,8 @@ export default ( state = storeDefault , action ) => {
             return state.set('page',action.page);
         case constants.MOUSEIN_CHANGE :
             return state.set('mouseIn',action.value);
+        case constants.KEYWORD_CHANGE :
+            return state.set('keyword',action.value)
         default :
             return state;
     }

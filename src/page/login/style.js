@@ -12,6 +12,45 @@ export const LoginWrapper = styled.div`
         height: 85%;
         vertical-align: middle;
     }
+    & .tl{
+    	text-align:left;
+    	.ant-form-item-label > label{
+    		font-weight:400;
+    		color:rgb(120,120,120);
+		}
+    }
+    // & .login-form{
+    // 	max-width: 300px;
+    // }
+    & .login-form-remember{
+    	float:left;
+    }
+    & .login-form-forgot{
+    	float: right;
+    }
+    & .login-form-button{
+    	width: 100%;
+    }
+    .login-form-button,.register-form-button{
+    	width: 100%;
+    	padding: 9px 18px;
+		font-size: 18px;
+		border: none;
+		border-radius: 25px;
+		color: #fff;
+		cursor: pointer;
+		outline: none;
+		display: block;
+		height:auto;
+    }
+    .register-form-button{
+		background: #42c02e;
+    	border-color:#42c02e;
+    }
+    .register-form-button:focus,.register-form-button:hover{
+    	background-color:#3db922;
+		border-color:#3db922;
+    }
 `;
 
 export const Logo = styled.div`

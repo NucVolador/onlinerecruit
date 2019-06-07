@@ -23,8 +23,8 @@ class Home extends PureComponent{
 		return (
 			<HomeWrapper className='clearfix'>
 				<HomeLeft>
-					<img src="//upload.jianshu.io/admin_banners/web_images/4351/ffe1a5887adb88081cbea7e851ecbc77fa208015.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540" alt=""/>
-					<Topic topic={topic}></Topic>
+					<img width="600" src="//upload.jianshu.io/admin_banners/web_images/4351/ffe1a5887adb88081cbea7e851ecbc77fa208015.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540" alt=""/>
+					{/*<Topic topic={topic}></Topic>*/}
 					<Info info={info}></Info>
 					<More onClick={()=>loadMore(page)}>加载更多</More>
 				</HomeLeft>

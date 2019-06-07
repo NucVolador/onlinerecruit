@@ -4,8 +4,10 @@ import * as serviceWorker from './serviceWorker';
 
 import Router from './router';
 
+import "antd/dist/antd.css";
 import "./statics/css/style";
 import "./statics/font/iconfont"
+
 
 ReactDOM.render(<Router />, document.getElementById('root'));
 

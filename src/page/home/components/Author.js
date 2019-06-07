@@ -5,7 +5,7 @@ const Author = ({author}) => {
     return (
         <AuthorWrapper>
             <AuthorTitle>
-                <span>推荐作者</span>
+                <span>推荐人物</span>
                 <a>
                     <i className="iconfont">
                         &#xe851;
@@ -20,7 +20,7 @@ const Author = ({author}) => {
                             <a className='avatar'>
                                 <img src={item.get('imgUrl')} alt=""/>
                             </a>
-                            <a className='follow'>+关注</a>
+                            <a className='follow'></a>
                             <a className='name'>{item.get('name')}</a>
                             <p>{item.get('desc')}</p>
                         </li>

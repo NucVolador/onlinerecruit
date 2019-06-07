@@ -82,7 +82,21 @@ module.exports = function(proxy, allowedHost) {
       disableDotRule: true,
     },
     public: allowedHost,
-    proxy,
+    // proxy,
+    proxy:{
+        "/api": {
+            "target": "http://localhost:3000",
+            "pathRewrite": {
+                "^/api": "/"
+            }
+        },
+        "/static":{
+			"target": "http://localhost:3000",
+			"pathRewrite": {
+				"^/static": "/"
+			}
+        }
+    },
     before(app, server) {
       if (fs.existsSync(paths.proxySetup)) {
         // This registers user provided middleware for proxy reasons

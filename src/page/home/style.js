@@ -10,8 +10,9 @@ export const HomeWrapper = styled.div`
 export const HomeLeft = styled.div`
     float : left
     margin-left: 15px;
+    
     padding-top: 30px;
-    width: 625px;
+    width: 600px;
     > img {
         height: 270px;
         background-color: hsla(0,0%,71%,.2);
@@ -86,11 +87,17 @@ export const ContentWrapper = styled.div`
     padding-right:140px
     .title{
         margin: -7px 0 4px;
-        display: inherit;
+        display: inline-block;
         font-size: 18px;
         font-weight: 700;
         line-height: 1.5;
         color: #333;
+    }
+    .left{
+    	text-align:left;
+    }
+    .right{
+    	text-align:right;
     }
     .desc{
         margin: 0 0 8px;
@@ -226,6 +233,11 @@ export const More = styled.a`
     color: #fff;
     display:block;
     box-sizing: border-box;
+    transition:all 0.25s;
+    &:hover{
+		color: rgba(255,255,255,.8);
+		background-color: rgba(145,145,145,1);
+    }
 `;
 
 export const GoTop = styled.div`

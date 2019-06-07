@@ -16,7 +16,7 @@ export const HeaderContent = styled.div`
 
 export const Logo = styled.a`
     position:absolute;
-    width:100px;
+    width:130px;
     height:56px;
     & > img {
         width:100%;
@@ -30,20 +30,29 @@ export const Register = styled.div`
     line-height:56px;
     a{
         display:inline-block;
-        height:30px;
+        // height:30px;
         line-height:30px;
         border:1px solid #ec6149;
         border-radius:35px/40px;
         margin-right:15px;
         padding: 2px 23px;
     }
-    a:first-child{
+    a.toudi{
         color:#ec6149;
+        margin-right:35px;
     }
-    a:last-child{
-        color:#fff;
+    .logout{
+    	color:#ccc
+    }
+    .logout:hover{
+    	background-color:#ec6149;
+    	border-color:#ec6149
+    }
+    a:first-child{
+    	color:#fff;
         background:#ec6149;
     }
+    
 `;
 export const ContentMain = styled.div`
     width: 960px;
