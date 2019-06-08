@@ -7,6 +7,7 @@ import { reducer as Resume } from  "../page/resume/store"
 import { reducer as AppliedJob } from  "../page/appliedJob/store"
 import { reducer as SearchList } from  "../page/searchlist/store"
 import { reducer as Detail } from  "../page/detail/store"
+import { reducer as Admin } from  "../page/admin/store"
 
 const reducer = combineReducers({
     Blank,
@@ -16,7 +17,8 @@ const reducer = combineReducers({
 	Resume,
 	AppliedJob,
 	SearchList,
-	Detail
+	Detail,
+	Admin
 });
 
 export default reducer;

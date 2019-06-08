@@ -1,5 +1,5 @@
 'use strict';
-
+const autoprefixer = require('autoprefixer');
 const fs = require('fs');
 const isWsl = require('is-wsl');
 const path = require('path');
@@ -38,10 +38,12 @@ const shouldInlineRuntimeChunk = process.env.INLINE_RUNTIME_CHUNK !== 'false';
 const useTypeScript = fs.existsSync(paths.appTsConfig);
 
 // style files regexes
-const cssRegex = /\.css$/;
+const cssRegex = /\.(css|less)$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
+const lessRegex = /\.(less)$/;
+const lessModuleRegex = /\.module\.(less|less)$/;
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -453,6 +455,54 @@ module.exports = function(webpackEnv) {
                 'sass-loader'
               ),
             },
+			  // {
+				//   test: /\.less$/,
+				//   use: [
+				// 	  require.resolve('style-loader'),
+				// 	  {
+				// 		  loader: require.resolve('css-loader'),
+				// 		  options: {
+				// 			  importLoaders: 2,
+				// 		  },
+				// 	  },
+				// 	  {
+				// 		  loader: require.resolve('less-loader'),
+				// 	  },
+				// 	  {
+				// 		  loader:require.resolve('postcss-loader'),
+				// 	  }
+				//   ],
+			  // },
+			  // {
+				//   test: lessRegex,
+				//   exclude: lessModuleRegex,
+				//   use: getStyleLoaders(
+				// 	  {
+				// 		  importLoaders: 2,
+				// 		  sourceMap: isEnvProduction && shouldUseSourceMap,
+				// 	  },
+				// 	  'less-loader'
+				//   ),
+				//   // Don't consider CSS imports dead code even if the
+				//   // containing package claims to have no side effects.
+				//   // Remove this when webpack adds a warning or an error for this.
+				//   // See https://github.com/webpack/webpack/issues/6571
+				//   sideEffects: true,
+			  // },
+			  // // Adds support for CSS Modules, but using SASS
+			  // // using the extension .module.scss or .module.sass
+			  // {
+				//   test: lessModuleRegex,
+				//   use: getStyleLoaders(
+				// 	  {
+				// 		  importLoaders: 2,
+				// 		  sourceMap: isEnvProduction && shouldUseSourceMap,
+				// 		  modules: true,
+				// 		  getLocalIdent: getCSSModuleLocalIdent,
+				// 	  },
+				// 	  'less-loader'
+				//   ),
+			  // },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
             // In production, they would get copied to the `build` folder.

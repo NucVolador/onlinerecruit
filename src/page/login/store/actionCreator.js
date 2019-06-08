@@ -8,6 +8,12 @@ const changeLogin= userId => ({
     userId: userId
 })
 
+const changeAdminLogin= userId => ({
+	type : Constants.Admin_LOGIN,
+	is_admin_login: true,
+	userId: userId
+})
+
 const changeMsg = msg =>({
 	type : Constants.MSG,
 	msg
@@ -25,7 +31,12 @@ export const login  = (username,password) => {
                 console.log(res)
                 const {data} = res
                 if(data.code !== -1){
-					dispatch(changeLogin(data.data._id));
+                	if(data.data.type==="0"){
+						dispatch(changeLogin(data.data._id));
+					}else if(data.data.type==="1"){
+						dispatch(changeAdminLogin(data.data._id))
+					}
+					
 					// dispatch(changeMsg(data.msg));
 				}
 				return data.msg
@@ -47,7 +58,12 @@ export const register  = (username,password,type) => {
 				console.log(res)
 				const {data} = res
 				if(data.code !== -1){
-					dispatch(changeLogin(data.data._id));
+					if(type === "0"){
+						dispatch(changeLogin(data.data._id));
+					}
+					else{
+						dispatch(changeAdminLogin(data.data._id));
+					}
 				}
 				return data.msg
 			})

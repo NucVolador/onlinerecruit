@@ -66,10 +66,13 @@ class NormalLoginForm extends React.Component {
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		const {login} = this.state;
-		const {is_login,msg} = this.props;
+		const {is_login,msg,is_admin_login} = this.props;
 		
 		if(is_login){
 			return (<Redirect to='/'/>)
+		}
+		if(is_admin_login){
+			return (<Redirect to='/admin'/>)
 		}
 		
 		return (
@@ -200,6 +203,7 @@ const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLogin
 
 const mapState = (state) => ({
 	is_login: state.getIn(['Login','is_login']),
+	is_admin_login: state.getIn(['Login','is_admin_login']),
 	msg: state.getIn(['Login','msg'])
 })
 

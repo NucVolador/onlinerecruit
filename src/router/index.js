@@ -9,7 +9,9 @@ import Login from "../page/login";
 import Resume from "../page/resume";
 import AppliedJob from "../page/appliedJob";
 import SearchList from "../page/searchlist";
-import Detail from "../page/detail"
+import Detail from "../page/detail";
+import Admin from "../page/admin";
+import Company from "../page/company";
 
 
 export default ()=>{
@@ -22,6 +24,21 @@ export default ()=>{
 							<Route path='/login'
 								   exact
 								   component={Login}
+							/>
+							{/*<Route path='/admin'*/}
+								   {/*render={()=>(*/}
+								   		{/*<Route path='/admin/company'/>*/}
+								   {/*)}*/}
+							{/*/>*/}
+							<Route path='/admin'
+								render={()=>(
+									<Admin>
+										<Switch>
+											<Route path="/admin/companyInfo" component={Company}/>
+										</Switch>
+									</Admin>
+									
+								)}
 							/>
 							<Header></Header>
 						</Switch>
