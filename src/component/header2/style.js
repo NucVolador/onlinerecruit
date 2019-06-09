@@ -92,7 +92,7 @@ ul,li{
     }
     .main{
         height: calc(100vh);
-        background-color: @colorL;
+        background-color: #f1f3f5;
         overflow: auto;
     }
     .content{
@@ -137,7 +137,7 @@ ul,li{
 }
 
 .header{
-    background-color: @colorM;
+    background-color: #ffffff;
     .header-top{
         height: 60px;
         line-height: 60px;
@@ -172,7 +172,7 @@ ul,li{
                 content: '';
                 left:73px;
                 top:39px;
-                border-top: 9px solid @colorM;
+                border-top: 9px solid #ffffff;
                 border-left: 12px solid transparent;
                 border-right: 12px solid transparent;
             }

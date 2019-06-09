@@ -23,7 +23,7 @@ import { Redirect } from 'react-router-dom';
                         <NavLeft/>
                     </Col>
                     <Col span={20} className="main">
-                        <Header/>
+                        <Header />
                         <Row className="content">
                             {/* <Home/> */}
                             {this.props.children}

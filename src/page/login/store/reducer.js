@@ -4,7 +4,7 @@ import * as Constants from './constants'
 const storeDefault = fromJS({
 	//test
 	is_login: false,
-	userId: "5cf7d485b2143737b4165e7c",
+	userId: "5cfbaafa3732a414182eb206",
 	is_admin_login: true,
 	// is_login: false,
     // userId: "",

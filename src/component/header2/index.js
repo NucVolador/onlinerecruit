@@ -67,7 +67,12 @@ class Header extends React.Component{
                 {
                     menuType?'':
                         <Row className="breadcrumb">
-                            <Col span={4} className="breadcrumb-title">
+                            <Col span={4} className="breadcrumb-title"
+								style={{
+									textAlign: "center",
+									fontSize: "18px"
+								}}
+							>
                                 { this.props.menuName }
                             </Col>
                             <Col span={20} className="weather">
@@ -89,7 +94,7 @@ class Header extends React.Component{
 
 const mapStateToProps = state => {
     return {
-        menuName:state.menuName,
+        menuName: state.getIn(['Admin','menuName']),
 		is_admin_login: state.getIn(['Login','is_admin_login']),
     }
 }

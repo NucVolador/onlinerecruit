@@ -12,6 +12,11 @@ import SearchList from "../page/searchlist";
 import Detail from "../page/detail";
 import Admin from "../page/admin";
 import Company from "../page/company";
+import AfterIndex from "../page/afterIndex";
+import Job from "../page/job";
+import ApplyList from "../page/applyList";
+import TalentPool from "../page/talentPool";
+
 
 
 export default ()=>{
@@ -34,7 +39,11 @@ export default ()=>{
 								render={()=>(
 									<Admin>
 										<Switch>
+											<Route path="/admin/home" component={AfterIndex}/>
 											<Route path="/admin/companyInfo" component={Company}/>
+											<Route path="/admin/job" component={Job}/>
+											<Route path="/admin/applyList" component={ApplyList}/>
+											<Route path="/admin/talentPool" component={TalentPool}/>
 										</Switch>
 									</Admin>
 									

@@ -92,7 +92,7 @@ ul,li{
     }
     .main{
         height: calc(100vh);
-        background-color: @colorL;
+        background-color: #f1f3f5;
         overflow: auto;
     }
     .content{

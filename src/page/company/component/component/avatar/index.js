@@ -1,5 +1,4 @@
-import React,{Component,Fragment} from 'react';
-import Axios from "../../../../../../common/http"
+import React,{PureComponent,Fragment} from 'react';
 import reqwest from 'reqwest';
 
 import { Upload, Icon, message, Button } from 'antd'
@@ -105,7 +104,7 @@ function getBase64(img, callback) {
 // 	}
 // }
 
-class Avatar extends React.Component{
+class Avatar extends PureComponent{
 	state = {
 		fileList: [],
 		uploading: false,
@@ -150,7 +149,13 @@ class Avatar extends React.Component{
 	componentWillReceiveProps(){
 		const {imageSrc} = this.props;
 		const {first} = this.state;
-		console.log(first,imageSrc,"aaaaa")
+		// setTimeout(()=>{
+		// 	console.log(imageSrc,"imageSrc")
+		// 	this.setState({
+		// 		imageUrl: imageSrc,
+		// 		first: false
+		// 	})
+		// },2000)
 		if(first && imageSrc!=="" ){
 			this.setState({
 				imageUrl: imageSrc,
@@ -193,7 +198,7 @@ class Avatar extends React.Component{
 					uploading: true,
 				},()=>{
 					reqwest({
-						url: '/api/avatar',
+						url: '/api/admin/companyAvatar',
 						method: 'post',
 						processData: false,
 						

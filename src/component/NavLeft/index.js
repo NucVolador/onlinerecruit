@@ -5,15 +5,18 @@ import { connect } from 'react-redux'
 import { switchMenu } from '../../page/admin/store/actionCreator'
 import MenuConfig from './../../config/menuConfig'
 import {WrapperContainer} from './style'
+
+import {ActionCreator} from "../../page/admin/store"
+
 const logo_ant = require("../../statics/images/logo-ant.svg");
+
 const SubMenu = Menu.SubMenu;
 class NavLeft extends React.Component {
     state = {
         currentKey:''
     }
     handleClick = ({ item ,key})=>{
-        const { dispatch } = this.props;
-        dispatch(switchMenu(item.props.title))
+		this.props.switchMenu(item.props.title)
         this.setState({
             currentKey:key
         })
@@ -70,4 +73,21 @@ class NavLeft extends React.Component {
         );
     }
 }
-export default connect()(NavLeft);
+
+const mapState = (state) => {
+	return {
+		is_admin_login : state.getIn(['Login','is_admin_login']),
+	}
+}
+
+const mapDispatch = (dispatch) => {
+	return {
+		switchMenu(title){
+		    dispatch(ActionCreator.switchMenu(title))
+        }
+		// getContent(id){
+		// 	dispatch(ActionCreators.getContent(id));
+		// }
+	}
+}
+export default connect(mapState,mapDispatch)(NavLeft);

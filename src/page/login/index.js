@@ -72,7 +72,7 @@ class NormalLoginForm extends React.Component {
 			return (<Redirect to='/'/>)
 		}
 		if(is_admin_login){
-			return (<Redirect to='/admin'/>)
+			return (<Redirect to='/admin/home'/>)
 		}
 		
 		return (

@@ -8,6 +8,10 @@ import { reducer as AppliedJob } from  "../page/appliedJob/store"
 import { reducer as SearchList } from  "../page/searchlist/store"
 import { reducer as Detail } from  "../page/detail/store"
 import { reducer as Admin } from  "../page/admin/store"
+import { reducer as Company } from  "../page/company/store"
+import { reducer as Job } from  "../page/job/store"
+import { reducer as ApplyList } from  "../page/applyList/store"
+import { reducer as TalentPool } from  "../page/talentPool/store"
 
 const reducer = combineReducers({
     Blank,
@@ -18,7 +22,11 @@ const reducer = combineReducers({
 	AppliedJob,
 	SearchList,
 	Detail,
-	Admin
+	Admin,
+	Company,
+	Job,
+	ApplyList,
+	TalentPool
 });
 
 export default reducer;

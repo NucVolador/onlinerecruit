@@ -1,7 +1,7 @@
 import JsonP from 'jsonp'
 import axios from 'axios'
 import querystring from 'querystring';
-import { Modal } from 'antd'
+import { Modal,message } from 'antd'
 import Utils from './../utils/utils'
 export default class Axios {
 
@@ -15,12 +15,14 @@ export default class Axios {
             data,
 			isMock
         }).then((data)=>{
+        	console.log(data,"初始化")
             if (data && data.result){
                 let list = data.result.item_list.map((item, index) => {
                     item.key = index;
                     return item;
                 });
-                _this.setState({
+				console.log(list,"list");
+				_this.setState({
                     list,
                     pagination: Utils.pagination(data, (current) => {
                         _this.params.page = current;
@@ -51,7 +53,7 @@ export default class Axios {
         }
         let baseApi = '';
         if(options.isMock){
-            baseApi = '/after';
+            baseApi = '/api';
         }else{
             baseApi = 'https://www.easy-mock.com/mock/5a7278e28d0c633b9c4adbd7/api';
         }
@@ -75,7 +77,8 @@ export default class Axios {
 				
 					if (response.status == '200'){
 						let res = response.data;
-						if (res.code == '0'){
+						if (res.code === 1){
+							message.info(res.msg)
 							resolve(res);
 						}else{
 							Modal.info({
@@ -102,8 +105,8 @@ export default class Axios {
 				
 					if (response.status == '200'){
 						let res = response.data;
-						if (res.code == '0'){
-							// console.log(response)
+						if (res.code === 1){
+							// message.info(res.msg)
 							resolve(res);
 						}else{
 							Modal.info({

@@ -2,29 +2,7 @@ import { fromJS } from 'immutable';
 import * as Constants from './constants'
 
 const storeDefault = fromJS({
-	companyFields: {
-		companyName: {
-			value: ""
-		},
-		email: {
-			value: ""
-		},
-		phoneNum: {
-			value: ""
-		},
-		address: {
-			value: ""
-		},
-		introduce: {
-			value: ""
-		},
-		special: {
-			value: ""
-		},
-		avatar: {
-			value: ""
-		}
-	},
+
 });
 
 // const getHomeData = (state,action) => ({
@@ -39,10 +17,6 @@ export default  (state = storeDefault,action) => {
         case Constants.CHANGE_SHOW:
             // return state.merge(getHomeData(state,action));
             return state;
-		case Constants.CHANGE_COMPANY:
-			return state.merge({
-				companyFields:action.data
-			});
         default:
             return state;
     }
