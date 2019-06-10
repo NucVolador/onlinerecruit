@@ -91,16 +91,18 @@ class Header extends PureComponent{
                                 
                             >
                                 <input type="text" className={focused ? 'focused':''} value={keyword} onChange={()=>this.props.handleKeywordChange(window.event.target.value)} />
-                                <i className={focused ? 'focused iconfont':'iconfont'}
-                                   style={{ cursor: "pointer"}}
-                                   onClick={
-									   ()=>{
-										   this.props.query(job);
-										   this.context.router.history.push(`/searchlist?keyword=${keyword}&city=${city}&job=${job}&workLife=${workLife}`);
-										   // console.log(this.props);
+									<i className={focused ? 'focused iconfont':'iconfont'}
+									   style={{ cursor: "pointer"}}
+									   onClick={
+										   ()=>{
+											   // this.props.query(job);
+											   // this.context.router.history.push(`/searchlist?keyword=${keyword}&city=${city}&job=${job}&workLife=${workLife}`);
+											   this.context.router.history.push(`/searchlist?keyword=${keyword}`);
+											   // console.log(this.props);
+										   }
 									   }
-                                   }
-                                >&#xe64d;</i>
+									>&#xe64d;</i>
+                                
                                 <SearchInfo className={ (focused || mouseIn)? 'show':''}
                                     onMouseEnter={handleMouseEnter}
                                     onMouseLeave={handleMouseLeave}
@@ -118,16 +120,18 @@ class Header extends PureComponent{
                                     </SearchTitle>
                                     <SearchList>
                                         {currentList.map((item) => {
-                                            return <SearchItem key={item}
-                                                               onClick={
-                                                                   ()=>{
-                                                                        this.props.handleKeywordChange(item)
-																	     this.props.query(item);
-																	     this.context.router.history.push(`/searchlist?keyword=${item}&city=${city}&job=${job}&workLife=${workLife}`);
-                      
-																	   // console.log(this.props);
-																   }
-                                                               }
+                                            return <SearchItem
+                                                        key={item}
+                                                        onClick={
+                                                           ()=>{
+                                                                this.props.handleKeywordChange(item)
+                                                                 // this.props.query(item);
+                                                                 // this.context.router.history.push(`/searchlist?keyword=${item}&city=${city}&job=${job}&workLife=${workLife}`);
+                                                               this.context.router.history.push(`/searchlist?keyword=${item}`);
+            
+                                                               // console.log(this.props);
+                                                           }
+                                                       }
                                                     >
                                                         {item}
                                                     </SearchItem>

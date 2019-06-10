@@ -4,7 +4,7 @@ export const SearchListWrapper = styled.div`
     width: 960px;
     padding-left: 15px;
     padding-right: 15px;
-    margin: 35px auto 0;
+    margin: 80px auto 0;
     padding-bottom: 80px;
 `
 
@@ -54,24 +54,24 @@ export const SearchConditionWrapper = styled.div`
 
 export const InfoWrapper = styled.div`
     > div{
-    
+        background-color: rgb(238,238,238);
         position: relative;
         width: 100%;
         margin: 15px 0 ;
-        padding: 15px 2px 20px 0;
+        padding: 15px;
         border-bottom: 1px solid #f0f0f0;
         word-wrap: break-word;
     }
-    > div > a{
+    > div >div > a{
         position: absolute;
         top: 50%;
         margin-top: -60px;
-        right: 0;
+        right: 15px;
         width: 125px;
         height: 100px;
     }
     
-    > div > a img{
+    > div >div > a img{
         width: 100%;
         height: 100%;
         border-radius: 4px;
@@ -80,7 +80,10 @@ export const InfoWrapper = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
-    padding-right:140px
+    margin-right:140px;
+    padding:20px;
+    // padding-bottom:20px;
+    // background-color:#fff;
     .title{
         margin: -7px 0 4px;
         display: inline-block;

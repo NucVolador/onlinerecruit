@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import {
 	ActionCreator,
 } from './store';
-import { Card, Button, Modal,Form, Input, Radio, DatePicker, Select,Icon,InputNumber} from 'antd'
+import Resume from "./component/resume";
+import { Card, Button, Modal,Form, Input, Radio, DatePicker, Select,Icon,InputNumber,Divider} from 'antd'
 import axios from './../../common/otherAxios'
 import Utils from './../../utils/utils'
 import BaseForm from './../../component/BaseForm'
@@ -22,7 +23,8 @@ class User extends PureComponent{
 	}
 	
 	state = {
-		isVisible:false
+		isVisible:false,
+		isVisibleResume:false
 	}
 	
 	componentDidMount(){
@@ -30,7 +32,7 @@ class User extends PureComponent{
 	}
 	
 	requestList = ()=>{
-		axios.requestList(this,'/admin/job',this.params,true);
+		axios.requestList(this,'/admin/talentPool',this.params,true);
 		// axios.requestList(this,'/shenqing/list.php',this.params,true);
 	}
 	
@@ -63,8 +65,8 @@ class User extends PureComponent{
 			this.setState({
 				type,
 				isVisible: true,
-				title: '修改成绩',
-				userInfo:item
+				title: '修改状态',
+				resumeInfo:item
 			})
 		}else{
 			if (!item) {
@@ -77,11 +79,11 @@ class User extends PureComponent{
 			let _this = this;
 			console.log(item)
 			Modal.confirm({
-				title:'确认删除',
-				content:'是否要删除当前选中行的信息',
+				title:'丢入人才库',
+				content:'是否要丢入人才库',
 				onOk(){
 					axios.ajax({
-						url:'/admin/deleteJob',
+						url:'/admin/deleteApplyList',
 						data:{
 							params:{
 								jobId:item._id
@@ -109,7 +111,7 @@ class User extends PureComponent{
 				let data = this.userForm.props.form.getFieldsValue();
 				
 				axios.ajax({
-					url:type ==='add'?'/admin/job':'/admin/job',
+					url:type ==='add'?'/admin/updateApplyList':'/admin/updateApplyList',
 					data:{
 						params: data
 					},
@@ -120,7 +122,8 @@ class User extends PureComponent{
 					if(res.code === 1){
 						this.userForm.props.form.resetFields();
 						this.setState({
-							isVisible:false
+							isVisible:false,
+							resumeInfo: ""
 						})
 						console.log("requestList!")
 						this.requestList();
@@ -143,6 +146,22 @@ class User extends PureComponent{
 		clearFilters();
 		this.setState({ searchText: '' });
 	}
+	
+	showResume = (resumeInfo) => {
+		this.setState({
+			resumeInfo: JSON.parse(resumeInfo),
+			isVisibleResume: true,
+			title: "简历信息"
+		})
+	}
+	getState = (state)=>{
+		return {
+			'0':'待筛选',
+			'1':'面邀',
+			'2':'通过',
+			'3':'人才库',
+		}[state]
+	};
 	render(){
 		const {is_admin_login} = this.props;
 		if(!is_admin_login){
@@ -189,9 +208,9 @@ class User extends PureComponent{
 				}
 			},
 			{
-				title: '职位描述',
-				dataIndex: 'jobDescription',
-				key:'jobDescription',
+				title: '应聘者',
+				dataIndex: 'candidateName',
+				key:'candidateName',
 				render: (text) => {
 					const { searchText } = this.state;
 					return searchText ? (
@@ -203,6 +222,33 @@ class User extends PureComponent{
                     </span>
 					) : text;
 				}
+			},
+			{
+				title: '应聘状态',
+				dataIndex: 'state',
+				key:'_id',
+				render: (text) => {
+					const { searchText } = this.state;
+					text = this.getState(text);
+					return searchText ? (
+						<span>
+                        {String(text).split(new RegExp(`(?<=${searchText})|(?=${searchText})`, 'i')).map((fragment, i) => (
+							fragment.toLowerCase() === searchText.toLowerCase()
+								? <span key={i} className="highlight">{fragment}</span> : fragment
+						))}
+                    </span>
+					) : text;
+				}
+			},
+			{
+				title: '简历信息',
+				dataIndex: 'resumeInfo',
+				key:'resumeInfo',
+				render: (text, record) => (
+					<span>
+						<a href="javascript:;" onClick={()=>this.showResume(record.resumeInfo)}>查看简历</a>
+					</span>
+				),
 			},
 			// {
 			// 	title: '职位id',
@@ -224,9 +270,9 @@ class User extends PureComponent{
 		return (
 			<div>
 				<Card style={{ marginTop: 10 }} className="operate-wrap">
-					<Button type="primary" icon="edit" onClick={() => this.hanleOperate('edit')}>修改职位</Button>
-					<Button type="primary" icon="delete" onClick={() => this.hanleOperate('delete')}>删除职位</Button>
-					<Button type="primary" icon="plus" onClick={()=>this.hanleOperate('add')}>增加职位</Button>
+					{/*<Button type="primary" icon="delete" onClick={() => this.hanleOperate('delete')}>丢入人才库</Button>*/}
+					{/*<Button type="primary" icon="edit" onClick={() => this.hanleOperate('edit')}>修改状态</Button>*/}
+					{/*<Button type="primary" icon="plus" onClick={()=>this.hanleOperate('add')}>查看简历</Button>*/}
 				</Card>
 				<div className="content-wrap">
 					<ETable
@@ -241,7 +287,12 @@ class User extends PureComponent{
 				<Modal
 					title={this.state.title}
 					visible={this.state.isVisible}
-					onOk={this.handleSubmit}
+					onOk={()=>{
+						this.handleSubmit()
+						this.setState({
+							resumeInfo: ""
+						})
+					}}
 					onCancel={()=>{
 						this.userForm.props.form.resetFields();
 						this.setState({
@@ -251,29 +302,39 @@ class User extends PureComponent{
 					width={600}
 					{ ...footer }
 				>
-					<UserForm userId={this.props.userId} type={this.state.type} userInfo={this.state.userInfo} wrappedComponentRef={(inst)=>{this.userForm = inst;}}/>
+					<UserForm userId={this.props.userId} type={this.state.type} userInfo={this.state.resumeInfo} wrappedComponentRef={(inst)=>{this.userForm = inst;}}/>
 				</Modal>
+				{
+					this.state.isVisibleResume?
+						<Modal
+							title={this.state.title}
+							visible={this.state.isVisibleResume}
+							width={960}
+							onCancel={()=>{
+								this.setState({
+									isVisibleResume:false
+								})
+							}}
+						>
+							<Resume data={this.state.resumeInfo}/>
+						</Modal>
+						:
+						""
+				}
+				
 			</div>
 		);
 	}
 }
 class UserForm extends PureComponent{
-	
 	getState = (state)=>{
 		return {
-			'1':'计算机组成原理',
-			'2':'计算机网络',
-			'3':'高等数学',
-			'4':'大学英语',
-			'5':'web前端开发',
-			'6':'数据挖掘',
-			'7':'MongoDB',
-			'8':'Redis',
-			'9':'SpringBoot',
-			'10':'Angular'
+			'0':'待筛选',
+			'1':'面邀',
+			'2':'通过',
+			'3':'人才库',
 		}[state]
 	};
-	
 	render(){
 		let type = this.props.type;
 		let userInfo = this.props.userInfo || {};
@@ -329,8 +390,8 @@ class UserForm extends PureComponent{
 				<Form layout="horizontal">
 					<FormItem {...formItemLayout}>
 						{
-							getFieldDecorator('userId',{
-								initialValue: this.props.userId,
+							getFieldDecorator('jobId',{
+								initialValue: userInfo.jobId,
 							})(
 								<Input type="hidden"/>
 							)
@@ -338,29 +399,29 @@ class UserForm extends PureComponent{
 					</FormItem>
 					<FormItem {...formItemLayout}>
 						{
-							getFieldDecorator('jobId',{
-								initialValue: userInfo._id,
+							getFieldDecorator('candidateId',{
+								initialValue: userInfo.candidateId,
 							})(
 								<Input type="hidden"/>
 							)
 						}
 					</FormItem>
-					<FormItem label="职位名称" {...formItemLayout}>
+					<FormItem label="应聘状态" {...formItemLayout}>
 						{
-							getFieldDecorator('jobName',{
-								initialValue: userInfo.jobName,
-								rules: [{ required: true, message: '职位不能为空！' }],
+							getFieldDecorator('state',{
+								initialValue: userInfo.state,
+								rules: [{
+									required: true,
+									message: '请选择状态',
+								}],
 							})(
-								<Input placeholder="请输入职位名称"/>
-							)
-						}
-					</FormItem>
-					<FormItem label="职位描述" {...formItemLayout}>
-						{
-							getFieldDecorator('jobDescription',{
-								initialValue: userInfo.jobDescription
-							})(
-								<TextArea autosize={{ minRows: 10, maxRows: 15 }} />
+
+								<Select>
+									<Option value={"0"}>待筛选</Option>
+									<Option value={"1"}>面邀</Option>
+									<Option value={"2"}>通过</Option>
+									<Option value={"3"}>人才库</Option>
+								</Select>
 							)
 						}
 					</FormItem>

@@ -8,11 +8,10 @@ const nextPageChange = data => ({
 })
 
 const homeDataChange = data => ({
-    type:Constants.GET_HOME_DATA,
+    type: Constants.GET_HOME_DATA,
     topic : data.get('topic'),
-    info : data.get('info'),
-    ad: data.get('ad'),
-    author : data.get('author')
+    info : data.get('item_list'),
+    totalPage: data.get('total_count')
 });
 
 const isShow = data => ({
@@ -22,10 +21,10 @@ const isShow = data => ({
 
 export const getHomeData = () => {
     return (dispatch) => {
-        axios.get('/api/home.json')
+        axios.get('/queryJob')
             .then( res => {
-                const {data} = res.data;
-                dispatch(homeDataChange(fromJS(data)));
+                const {result} = res.data;
+                dispatch(homeDataChange(fromJS(result)));
             })
             .catch((err)=>{
                 console.log(err);
@@ -48,4 +47,24 @@ export const changeShow = data => {
     return (dispatch) =>{
         dispatch(isShow(data));
     }
+};
+
+const nextDataChange = data => ({
+	type: Constants.NEXT_DATA,
+	info : data.get('item_list'),
+	totalPage: data.get('total_count'),
+	page: data.get('page')
+});
+
+export const getNextJob = (keyword,page)=> {
+	return (dispatch) => {
+		axios.get('/queryJob?keyword='+keyword+"&page="+page)
+			.then( res => {
+				const {result} = res.data;
+				dispatch(nextDataChange(fromJS(result)));
+			})
+			.catch((err)=>{
+				console.log(err);
+			});
+	}
 };

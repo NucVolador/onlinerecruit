@@ -16,13 +16,13 @@ const Author = ({author}) => {
             <AuthorList>
                 {
                     author.map(item => (
-                        <li key={item.get('id')}>
+                        <li key={item.id}>
                             <a className='avatar'>
-                                <img src={item.get('imgUrl')} alt=""/>
+                                <img src={item.imgUrl} alt=""/>
                             </a>
                             <a className='follow'></a>
-                            <a className='name'>{item.get('name')}</a>
-                            <p>{item.get('desc')}</p>
+                            <a className='name'>{item.name}</a>
+                            <p>{item.desc}</p>
                         </li>
                     ))
                 }

@@ -3,9 +3,12 @@ import * as Constants from './constants'
 
 const storeDefault = fromJS({
 	//test
-	is_login: false,
-	userId: "5cfbaafa3732a414182eb206",
-	is_admin_login: true,
+	is_login: true,
+	// 企业
+	// userId: "5cfbaafa3732a414182eb206",
+	//求职者
+	userId: "5cfbabba3732a414182eb207",
+	is_admin_login: false,
 	// is_login: false,
     // userId: "",
 	msg: ""

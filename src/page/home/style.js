@@ -99,12 +99,45 @@ export const ContentWrapper = styled.div`
     .right{
     	text-align:right;
     }
+    .kuang{
+        display: inline-block;
+    padding: 0 10px;
+    margin-right: 5px;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    border-radius: 15px;
+    font-size: 12px;
+    color: #777;
+    }
     .desc{
         margin: 0 0 8px;
         font-size: 13px;
-        line-height: 24px;
+        // line-height: 24px;
         color: #999;
+        width:100%
+        height:60px;
+        // white-space:nowrap;
+		// overflow:hidden;
+		// text-overflow:ellipsis;
+		// overflow: hidden;首先是溢出隐藏，不可或缺
+
+		// display: -webkit-box;
+		// box-orient: vertical;
+		// line-clamp: 3;
+	//   text-overflow: ellipsis;
+	text-indent:19px;
+	overflow:hidden;
+  text-overflow:ellipsis;
+  display:-webkit-box;  //将对象作为弹性伸缩盒子模型显示。
+  -webkit-box-orient:vertical; //从上到下垂直排列子元素（设置伸缩盒子的子元素排列方式）
+  -webkit-line-clamp:3; //这个属性不是css的规范属性，需要组合上面两个属性，表示显示的行数。此处为2行
+  word-wrap: break-word;//允许单词内断句，首先会尝试挪到下一行，看看下一行的宽度够不够，不够的话就进行单词内的断句
     }
+    
+    
 `;
 
 export const Meta = styled.div`

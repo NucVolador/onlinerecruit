@@ -55,7 +55,8 @@ export default ()=>{
 						<Route path='/resume' exact component={Resume}/>
 						<Route path='/applied_job' exact component={AppliedJob}/>
 						<Route path='/searchlist' exact component={SearchList} />
-						<Route path = '/detail/:id'
+						{/*<Route path = '/detail/:info'*/}
+						<Route path = '/detail'
                                exact
                                component = {Detail}
                         >

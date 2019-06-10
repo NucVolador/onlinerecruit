@@ -1,5 +1,6 @@
 import axios from 'axios';
-import * as Contants from './constants'
+import * as Contants from './constants';
+import {message} from "antd"
 
 const changeDetail = data => ({
     type:Contants.CHANGE_DETAIL,
@@ -15,3 +16,13 @@ export const getContent = (id) => {
             })
     }
 };
+
+export const toudi = (obj)=>{
+    return dispatch => {
+        return axios.post('/admin/applyList',obj)
+            .then((res)=>{
+                message.info(res.data.msg);
+                // console.log()
+            })
+    }
+}

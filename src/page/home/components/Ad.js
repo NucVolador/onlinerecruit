@@ -6,8 +6,8 @@ const Ad = ({ad}) => {
         <AdWrapper>
             {
                 ad.map(item => (
-                    <a key={item.get('id')}>
-                        <img src={item.get('imgUrl')} alt=""/>
+                    <a key={item.id}>
+                        <img src={item.imgUrl} alt=""/>
                     </a>
                 ))
             }

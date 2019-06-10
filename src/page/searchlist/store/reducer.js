@@ -6,6 +6,8 @@ const storeDefault = fromJS({
     job:"",
     workLife:"",
 	info : [],
+	page : 1,
+	totalPage: 1
 });
 
 // const getHomeData = (state,action) => ({
@@ -30,6 +32,19 @@ export default  (state = storeDefault,action) => {
 			return state.set('info',state.get('info').concat(action.data));
 		case Constants.NEXT_PAGE_CHANGE2:
 			return state.set('info',action.data);
+		case Constants.GET_HOME_DATA:
+			return state.merge({
+				totalPage: Math.ceil(action.totalPage/10),
+				info:action.info
+			});
+		case Constants.NEXT_DATA:
+			// state.set('info',state.get('info').concat(action.info))
+			// return state.set('info',state.get('info').concat(action.info))
+			return state.merge({
+				// totalPage: action.totalPage,
+				info:state.get('info').concat(action.info),
+				page:action.page
+			});
 		default:
             return state;
     }

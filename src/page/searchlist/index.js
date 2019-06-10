@@ -12,6 +12,7 @@ import {
 
 import Info from './components/Info';
 
+import {message} from 'antd'
 
 class SearchList extends PureComponent{
 	state={
@@ -97,6 +98,9 @@ class SearchList extends PureComponent{
 			}
 		]
 	}
+	componentDidMount(){
+		this.props.getDataList(this.props.keyword)
+	}
     render(){
 		const {conditions:conditions1} = this.state
 		let conditions = JSON.parse(JSON.stringify(conditions1))
@@ -104,53 +108,53 @@ class SearchList extends PureComponent{
 		if(!is_login){
 			return (<Redirect to='/login'/>)
 		}
-		let {info,loadMore,job} = this.props;
+		let {info,loadMore,job,page,totalPage,keyword} = this.props;
 		return (
 			<SearchListWrapper>
-				<SearchConditionWrapper>
-					{
-						conditions.map((item,index)=>
-							<li key={index} className={"condition clearfix"}>
-								<span className="conditionName"style={{float:"left",minWidth:"100px",fontWeight:"600"}}>{item.name}：</span>
-								{item.data.map((nextItem,nextIndex)=>
-									<a key={nextIndex}
-									   onClick={()=>{
-										   // this.setState({
-											//    conditions
-										   // })item.data
-										   console.log(nextIndex,index)
-										   conditions.map((item1,index1)=>{
-										   		if(index1!==index) return ;
-										   		item1.data.map((item2,idx2)=>{
-										   			item2.active= false;
-										   			if(index1===index && idx2===nextIndex){
-										   				item2.active=true
-													}
-												})
-										   })
-										   this.setState({conditions})
-										   switch (item.name){
-											   case "城市":
-													this.props.modifyCity(nextItem.value)
-													break;
-											   case "职位":
-												   this.props.modifyJob(nextItem.value)
-												   break;
-											   case "工作年限":
-												   this.props.modifyWorkLife(nextItem.value)
-												   break;
-										   }
-									   }}
-									   className={nextItem.active ?"active conditionItem":"conditionItem"}>
-										{nextItem.value?nextItem.value:"不限"}
-									</a>
-								)}
-							</li>
-						)
-					}
-				</SearchConditionWrapper>
+				{/*<SearchConditionWrapper>*/}
+					{/*{*/}
+						{/*conditions.map((item,index)=>*/}
+							{/*<li key={index} className={"condition clearfix"}>*/}
+								{/*<span className="conditionName"style={{float:"left",minWidth:"100px",fontWeight:"600"}}>{item.name}：</span>*/}
+								{/*{item.data.map((nextItem,nextIndex)=>*/}
+									{/*<a key={nextIndex}*/}
+									   {/*onClick={()=>{*/}
+										   {/*// this.setState({*/}
+											{/*//    conditions*/}
+										   {/*// })item.data*/}
+										   {/*console.log(nextIndex,index)*/}
+										   {/*conditions.map((item1,index1)=>{*/}
+										   		{/*if(index1!==index) return ;*/}
+										   		{/*item1.data.map((item2,idx2)=>{*/}
+										   			{/*item2.active= false;*/}
+										   			{/*if(index1===index && idx2===nextIndex){*/}
+										   				{/*item2.active=true*/}
+													{/*}*/}
+												{/*})*/}
+										   {/*})*/}
+										   {/*this.setState({conditions})*/}
+										   {/*switch (item.name){*/}
+											   {/*case "城市":*/}
+													{/*this.props.modifyCity(nextItem.value)*/}
+													{/*break;*/}
+											   {/*case "职位":*/}
+												   {/*this.props.modifyJob(nextItem.value)*/}
+												   {/*break;*/}
+											   {/*case "工作年限":*/}
+												   {/*this.props.modifyWorkLife(nextItem.value)*/}
+												   {/*break;*/}
+										   {/*}*/}
+									   {/*}}*/}
+									   {/*className={nextItem.active ?"active conditionItem":"conditionItem"}>*/}
+										{/*{nextItem.value?nextItem.value:"不限"}*/}
+									{/*</a>*/}
+								{/*)}*/}
+							{/*</li>*/}
+						{/*)*/}
+					{/*}*/}
+				{/*</SearchConditionWrapper>*/}
 				<Info info={info}></Info>
-				<More onClick={()=>loadMore(job)}>加载更多</More>
+				<More onClick={()=>this.props.loadNextJob(keyword,page,totalPage)}>加载更多</More>
 			</SearchListWrapper>
         )
 	}
@@ -162,7 +166,9 @@ const mapState = (state) => ({
 	keyword: state.getIn(['Header','keyword']),
 	city: state.getIn(['SearchList','city']),
 	job:state.getIn(['SearchList','job']),
-	workLife:state.getIn(['SearchList','workLife'])
+	workLife:state.getIn(['SearchList','workLife']),
+	page:state.getIn(['SearchList','page']),
+	totalPage:state.getIn(['SearchList','totalPage'])
 })
 
 const mapDispatch = (dispatch) => ({
@@ -183,7 +189,18 @@ const mapDispatch = (dispatch) => ({
 	},
 	query(page){
 		dispatch(ActionCreator.getNextPage2(page));
+	},
+	getDataList(keyword){
+		dispatch(ActionCreator.getHomeData(keyword))
+	},
+	loadNextJob(keyword,page,totalPage){
+		if(page<totalPage){
+			dispatch(ActionCreator.getNextJob(keyword,page+1))
+		}else{
+			message.info("无更多职位")
+		}
 	}
+	
 })
 
 export default connect(mapState, mapDispatch)(SearchList);

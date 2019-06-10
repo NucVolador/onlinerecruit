@@ -1,11 +1,11 @@
-import React,{PureComponent} from 'react';
+import React,{Component} from 'react';
 import { Form, Icon, Input, Button, Checkbox , Row, Col, Select,DatePicker} from 'antd';
 import Avatar from './component/avatar'
 
 const { Option } = Select;
 const { TextArea } = Input;
 
-class ResumeTemplate extends PureComponent{
+class ResumeTemplate extends Component{
 	handleSubmit = e => {
 		e.preventDefault();
 		this.props.form.validateFields((err, values) => {
@@ -26,6 +26,9 @@ class ResumeTemplate extends PureComponent{
 		}
 		return e && e.fileList;
 	};
+	shouldComponentUpdate(){
+		return true;
+	}
     render(){
 		const { getFieldDecorator } = this.props.form;
 		const formItemLayout = {
@@ -68,14 +71,27 @@ class ResumeTemplate extends PureComponent{
 							<Col span={24}>
 								<Form.Item
 									{...formItemLayout}
-									label="公司名称"
+									label="姓名"
 								>
-									{getFieldDecorator('companyName', {
-										rules: [{ required: true, message: '公司名称不能为空！' }],
+									{getFieldDecorator('username', {
+										rules: [{ required: true, message: '姓名不能为空！' }],
 									})(
 										<Input
 											prefix={<Icon type="user" style={{ color: 'rgb(150,150,150)' }} />}
 										/>
+									)}
+								</Form.Item>
+								<Form.Item
+									label="性别"
+									{...formItemLayout}
+								>
+									{getFieldDecorator('sex', {
+										rules: [{ required: true, message: '性别不能为空' }],
+									})(
+										<Select placeholder="请选择">
+											<Option value="0">男</Option>
+											<Option value="1">女</Option>
+										</Select>,
 									)}
 								</Form.Item>
 								<Form.Item
@@ -105,33 +121,33 @@ class ResumeTemplate extends PureComponent{
 									)}
 								</Form.Item>
 								<Form.Item
+									label="出生日期"
 									{...formItemLayout}
-									label="地址"
 								>
-									{getFieldDecorator('address', {
-										rules: [
-											{ required: true, message: '地址不能为空！' }
-										],
-									})(<Input
-										prefix={<Icon type="mail" style={{ color: 'rgb(150,150,150)' }} />}
-									/>)}
+									{getFieldDecorator('age', ageConfig)(<DatePicker />)}
 								</Form.Item>
 								<Form.Item
-									label="公司介绍"
+									label="最高学历"
 									{...formItemLayout}
 								>
-									{getFieldDecorator('introduce', {
-										rules: [{ max: 300, message: '字数最多为100字' }],
+									{getFieldDecorator('educationMax', {
+										rules: [{ required: true, message: '学历不能为空' }],
 									})(
-										<TextArea rows={4} />
+										<Select placeholder="请选择">
+											<Option value="0">专科</Option>
+											<Option value="1">本科</Option>
+											<Option value="2">双学位</Option>
+											<Option value="3">硕士</Option>
+											<Option value="4">博士</Option>
+										</Select>,
 									)}
 								</Form.Item>
 								<Form.Item
-									label="公司特色"
+									label="自我描述"
 									{...formItemLayout}
 								>
-									{getFieldDecorator('special', {
-										rules: [{ max: 300, message: '字数最多为100字' }],
+									{getFieldDecorator('introduce', {
+										rules: [{ max: 100, message: '字数最多为100字' }],
 									})(
 										<TextArea rows={4} />
 									)}
@@ -156,9 +172,6 @@ class ResumeTemplate extends PureComponent{
 								sm: { span: 16,offset:6 },
 							}}
 						>
-							<Button type="primary" htmlType="submit" className="login-form-button">
-								保存
-							</Button>
 						</Form.Item>
 					</Col>
 				</Row>
@@ -168,15 +181,16 @@ class ResumeTemplate extends PureComponent{
 }
 
 const WrappedResumeTemplate = Form.create({
-	name: 'company',
-	onFieldsChange(props, changedFields) {
-		props.onChange(changedFields);
-	},
+	name: 'person',
 	mapPropsToFields(props) {
 		return {
-			companyName: Form.createFormField({
-				...props.companyName,
-				value: props.companyName.value,
+			username: Form.createFormField({
+				...props.username,
+				value: props.username.value,
+			}),
+			sex: Form.createFormField({
+				...props.sex,
+				value: props.sex.value,
 			}),
 			email: Form.createFormField({
 				...props.email,
@@ -186,22 +200,22 @@ const WrappedResumeTemplate = Form.create({
 				...props.phoneNum,
 				value: props.phoneNum.value,
 			}),
-			address: Form.createFormField({
-				...props.address,
-				value: props.address.value,
+			age: Form.createFormField({
+				...props.age,
+				value: props.age.value,
+			}),
+			educationMax: Form.createFormField({
+				...props.educationMax,
+				value: props.educationMax.value,
 			}),
 			introduce: Form.createFormField({
 				...props.introduce,
 				value: props.introduce.value,
 			}),
-			special: Form.createFormField({
-				...props.special,
-				value: props.special.value,
-			}),
 			avatar: Form.createFormField({
 				...props.avatar,
 				value: props.avatar.value,
-			})
+			}),
 		};
 	},
 })(ResumeTemplate);

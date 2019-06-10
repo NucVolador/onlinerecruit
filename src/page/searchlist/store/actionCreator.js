@@ -57,3 +57,44 @@ export const getNextPage2 = page => {
 			.catch()
 	}
 };
+
+const homeDataChange = data => ({
+	type: Constants.GET_HOME_DATA,
+	info : data.get('item_list'),
+	totalPage: data.get('total_count')
+});
+
+
+
+export const getHomeData = keyword => {
+	return (dispatch) => {
+		axios.get('/queryJob?keyword='+keyword)
+			.then( res => {
+				const {result} = res.data;
+				dispatch(homeDataChange(fromJS(result)));
+			})
+			.catch((err)=>{
+				console.log(err);
+			});
+	}
+};
+
+const nextDataChange = data => ({
+	type: Constants.NEXT_DATA,
+	info : data.get('item_list'),
+	totalPage: data.get('total_count'),
+	page: data.get('page')
+});
+
+export const getNextJob = (keyword,page)=> {
+	return (dispatch) => {
+		axios.get('/queryJob?keyword='+keyword+"&page="+page)
+			.then( res => {
+				const {result} = res.data;
+				dispatch(nextDataChange(fromJS(result)));
+			})
+			.catch((err)=>{
+				console.log(err);
+			});
+	}
+};

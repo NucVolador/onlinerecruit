@@ -1,5 +1,4 @@
 import React,{Component,Fragment} from 'react';
-import Axios from "../../../../../../common/http"
 import reqwest from 'reqwest';
 
 import { Upload, Icon, message, Button } from 'antd'
@@ -109,7 +108,8 @@ class Avatar extends React.Component{
 	state = {
 		fileList: [],
 		uploading: false,
-		first:true
+		first:true,
+		imageUrl: ""
 	};
 	
 	handleUpload = () => {
@@ -155,15 +155,8 @@ class Avatar extends React.Component{
 		})
 	}
 	componentWillReceiveProps(){
-		const {imageSrc} = this.props;
-		const {first} = this.state;
-		console.log(first,imageSrc,"aaaaa")
-		if(first && imageSrc!=="" ){
-			this.setState({
-				imageUrl: imageSrc,
-				first: false
-			})
-		}
+	
+		
 		
 	}
 	
@@ -241,13 +234,7 @@ class Avatar extends React.Component{
 		
 		return (
 			<div>
-				<Upload
-					className="avatar-uploader"
-					listType="picture-card"
-					{...props}
-				>
-					{imageUrl ? <img width="110" height="110"  src={imageUrl} alt="avatar" /> : uploadButton}
-				</Upload>
+				{imageUrl ? <img width="110" height="110"  src={imageUrl} alt="avatar" /> : uploadButton}
 			</div>
 		);
 		
