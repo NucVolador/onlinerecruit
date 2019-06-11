@@ -144,16 +144,16 @@ class Avatar extends React.Component{
 			},
 		});
 	};
-	componentDidMount(){
-		const {imageSrc} = this.props;
-		const {first} = this.state;
-		console.log(first,imageSrc,"aaaaa")
-		console.log(imageSrc===undefined,"imageSrc...")
-		this.setState({
-			imageUrl: imageSrc,
-			first: false
-		})
-	}
+	// componentDidMount(){
+	// 	const {imageSrc} = this.props;
+	// 	const {first} = this.state;
+	// 	console.log(first,imageSrc,"aaaaa")
+	// 	console.log(imageSrc===undefined,"imageSrc...")
+	// 	this.setState({
+	// 		imageUrl: imageSrc,
+	// 		first: false
+	// 	})
+	// }
 	componentWillReceiveProps(){
 		const {imageSrc} = this.props;
 		const {first} = this.state;

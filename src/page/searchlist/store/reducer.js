@@ -33,6 +33,8 @@ export default  (state = storeDefault,action) => {
 		case Constants.NEXT_PAGE_CHANGE2:
 			return state.set('info',action.data);
 		case Constants.GET_HOME_DATA:
+			let a = state.set('info',action.info)
+			return a.set('totalPage',Math.ceil(action.totalPage/10))
 			return state.merge({
 				totalPage: Math.ceil(action.totalPage/10),
 				info:action.info

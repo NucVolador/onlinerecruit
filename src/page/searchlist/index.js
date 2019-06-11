@@ -14,6 +14,9 @@ import Info from './components/Info';
 
 import {message} from 'antd'
 
+
+let timer = null;
+
 class SearchList extends PureComponent{
 	state={
 		conditions : [
@@ -100,6 +103,13 @@ class SearchList extends PureComponent{
 	}
 	componentDidMount(){
 		this.props.getDataList(this.props.keyword)
+	}
+	
+	componentWillReceiveProps(){
+		clearTimeout(timer)
+		timer = setTimeout(()=>{
+			this.props.getDataList(this.props.keyword)
+		},1000)
 	}
     render(){
 		const {conditions:conditions1} = this.state
