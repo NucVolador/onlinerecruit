@@ -103,41 +103,41 @@ class Header extends PureComponent{
 									   }
 									>&#xe64d;</i>
                                 
-                                <SearchInfo className={ (focused || mouseIn)? 'show':''}
-                                    onMouseEnter={handleMouseEnter}
-                                    onMouseLeave={handleMouseLeave}
-                                >
-                                    <SearchTitle>
-                                        热门搜索
-                                        <a onClick={() => {handleChangePage(page,totalPage,this.icon)}}
-                                        >
-                                            <i ref={(icon) => this.icon = icon}
-                                                className="iconfont">
-                                                &#xe851;
-                                            </i>
-                                            换一批
-                                        </a>
-                                    </SearchTitle>
-                                    <SearchList>
-                                        {currentList.map((item) => {
-                                            return <SearchItem
-                                                        key={item}
-                                                        onClick={
-                                                           ()=>{
-                                                                this.props.handleKeywordChange(item)
-                                                                 // this.props.query(item);
-                                                                 // this.context.router.history.push(`/searchlist?keyword=${item}&city=${city}&job=${job}&workLife=${workLife}`);
-                                                               this.context.router.history.push(`/searchlist?keyword=${item}`);
-            
-                                                               // console.log(this.props);
-                                                           }
-                                                       }
-                                                    >
-                                                        {item}
-                                                    </SearchItem>
-                                        })}
-                                    </SearchList>
-                                </SearchInfo>
+                                {/*<SearchInfo className={ (focused || mouseIn)? 'show':''}*/}
+                                    {/*onMouseEnter={handleMouseEnter}*/}
+                                    {/*onMouseLeave={handleMouseLeave}*/}
+                                {/*>*/}
+                                    {/*<SearchTitle>*/}
+                                        {/*热门搜索*/}
+                                        {/*<a onClick={() => {handleChangePage(page,totalPage,this.icon)}}*/}
+                                        {/*>*/}
+                                            {/*<i ref={(icon) => this.icon = icon}*/}
+                                                {/*className="iconfont">*/}
+                                                {/*&#xe851;*/}
+                                            {/*</i>*/}
+                                            {/*换一批*/}
+                                        {/*</a>*/}
+                                    {/*</SearchTitle>*/}
+                                    {/*<SearchList>*/}
+                                        {/*{currentList.map((item) => {*/}
+                                            {/*return <SearchItem*/}
+                                                        {/*key={item}*/}
+                                                        {/*onClick={*/}
+                                                           {/*()=>{*/}
+                                                                {/*this.props.handleKeywordChange(item)*/}
+                                                                 {/*// this.props.query(item);*/}
+                                                                 {/*// this.context.router.history.push(`/searchlist?keyword=${item}&city=${city}&job=${job}&workLife=${workLife}`);*/}
+                                                               {/*this.context.router.history.push(`/searchlist?keyword=${item}`);*/}
+								
+                                                               {/*// console.log(this.props);*/}
+                                                           {/*}*/}
+                                                       {/*}*/}
+                                                    {/*>*/}
+                                                        {/*{item}*/}
+                                                    {/*</SearchItem>*/}
+                                        {/*})}*/}
+                                    {/*</SearchList>*/}
+                                {/*</SearchInfo>*/}
                             </SearchInput>
                         </CSSTransition>
                     </ContentMain>

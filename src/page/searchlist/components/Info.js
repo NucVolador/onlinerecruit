@@ -1,5 +1,6 @@
 import React from 'react';
 import {InfoWrapper,ContentWrapper,Meta} from '../style';
+import { NavLink } from 'react-router-dom'
 
 const Info = ({info}) => {
 	var a = 1;
@@ -13,16 +14,16 @@ const Info = ({info}) => {
 						<div key={a++}>
                             <div style={{    backgroundColor: "#fff",
 								position: "relative"}}>
-                                <a href={"/detail?a=" + encodeURI(JSON.stringify(item.toJS()))}>
+                                <NavLink to={"/detail?a=" + encodeURI(JSON.stringify(item.toJS()))}>
                                     <img src={item.getIn(['company', 'avatar'])} alt=""/>
-                                </a>
+                                </NavLink>
                                 <ContentWrapper>
-                                    <a className='title'
-                                       href={"/detail?a=" + encodeURI(JSON.stringify(item.toJS()))}>{item.get('jobName').split(" ")[0]}</a>
+                                    <NavLink className='title'
+                                       to={"/detail?a=" + encodeURI(JSON.stringify(item.toJS()))}>{item.get('jobName').split(" ")[0]}</NavLink>
                                     <p >{item.get('jobName').split(" ")[1]}</p>
-                                    <a href={"/detail?a=" + encodeURI(JSON.stringify(item.toJS()))}>
+                                    <NavLink to={"/detail?a=" + encodeURI(JSON.stringify(item.toJS()))}>
                                         <p className='desc'>{item.getIn(['company', 'introduce'])}</p>
-                                    </a>
+                                    </NavLink>
                                     <Meta>
                                         {/*<a></a>*/}
                                         {/*<a>{item.getIn(['meta','zan'])}</a>*/}

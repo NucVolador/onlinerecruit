@@ -77,6 +77,19 @@ export const InfoWrapper = styled.div`
         border-radius: 4px;
         border: 1px solid #f0f0f0;
     }
+    .kuang{
+        display: inline-block;
+    padding: 0 10px;
+    margin-right: 5px;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    border-radius: 15px;
+    font-size: 12px;
+    color: #777;
+    }
 `;
 
 export const ContentWrapper = styled.div`
